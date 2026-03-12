@@ -38,3 +38,5 @@ setup(
     packages=find_packages(),
     install_requires=get_requirements()
 )
+
+# Triggering setup.py: When you run pip install -r requirements.txt, the -e . flag tells pip to look for a setup.py file in the current directory.
