@@ -5,6 +5,8 @@ pymango
 certifi
 pymongo[srv]>=4.1.0
 scikit-learn
+dill
+pyaml
 
 
 ##-e .
