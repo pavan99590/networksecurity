@@ -24,16 +24,25 @@ from sklearn.ensemble import (
 import mlflow
 import dagshub
 
+import os
+import dagshub
 
-# Use the token passed from GitHub Secrets
+# 1. Get the token from the environment (passed by Docker)
 dagshub_token = os.getenv("DAGSHUB_TOKEN")
 
 if dagshub_token:
-    # This environment variable name is what the DagsHub library specifically looks for
+    # 2. Force the environment variables the library looks for
     os.environ['DAGSHUB_USER_TOKEN'] = dagshub_token
-    # This prevents the library from trying to open a browser
     os.environ['DAGSHUB_NON_INTERACTIVE'] = "1"
+    
+    # 3. Use the internal auth method to 'lock in' the token
+    from dagshub.auth import add_app_token
+    add_app_token(dagshub_token)
+    print("DagsHub Token detected and authenticated.")
+else:
+    print("Warning: DAGSHUB_TOKEN environment variable not found.")
 
+# 4. Now initialize
 dagshub.init(repo_owner='PavanB99', repo_name='networksecurity', mlflow=True)
 
 
