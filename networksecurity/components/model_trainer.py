@@ -23,6 +23,14 @@ from sklearn.ensemble import (
 )
 import mlflow
 import dagshub
+import os
+import dagshub
+
+
+token = os.getenv("DAGSHUB_TOKEN")
+if token:
+    os.environ['DAGSHUB_USER_TOKEN'] = token
+
 dagshub.init(repo_owner='PavanB99', repo_name='networksecurity', mlflow=True)
 
 
